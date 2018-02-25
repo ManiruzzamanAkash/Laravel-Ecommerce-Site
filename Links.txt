@@ -1,0 +1,4 @@
+
+Part2
+============
+Migrations - https://laravel.com/docs/5.6/migrations
