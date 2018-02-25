@@ -1,0 +1,14 @@
+
+
+Intervention
+=======================
+http://image.intervention.io/getting_started/installation#laravel
+
+Laravel Validation
+=======================
+https://laravel.com/docs/5.6/validation#quick-displaying-the-validation-errors
+
+
+Bootstrap Alert
+=======================
+https://www.w3schools.com/bootstrap/bootstrap_alerts.asp
