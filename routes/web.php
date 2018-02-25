@@ -11,6 +11,14 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', 'PagesController@index')->name('index');
+Route::get('/contact', 'PagesController@contact')->name('contact');
+
+
+Route::get('/products', 'PagesController@products')->name('products');
+
+Route::group(['prefix' => 'admin'], function(){
+  Route::get('/', 'AdminPagesController@index')->name('admin.index');
+  Route::get('/product/create', 'AdminPagesController@product_create')->name('admin.product.create');
+  Route::post('/product/create', 'AdminPagesController@product_store')->name('admin.product.store');
 });

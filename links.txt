@@ -1,0 +1,11 @@
+
+Admin Template Link
+==========================
+https://github.com/BootstrapDash/StarAdmin-Free-Bootstrap-Admin-Template
+
+More Admin Templates
+==========================
+https://cssauthor.com/bootstrap-templates/
+
+
+Bootstrap Form - https://getbootstrap.com/docs/4.0/components/forms/
