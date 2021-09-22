@@ -1,6 +1,7 @@
 <?php
 
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\API\CartsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,11 +14,10 @@ use Illuminate\Http\Request;
 |
 */
 
-
-// Cart Routes
+// API Cart Routes
 Route::group(['prefix' => 'carts'], function(){
-  Route::get('/', 'API\CartsController@index')->name('carts');
-  Route::post('/store', 'API\CartsController@store')->name('carts.store');
-  Route::post('/update/{id}', 'API\CartsController@update')->name('carts.update');
-  Route::post('/delete/{id}', 'API\CartsController@destroy')->name('carts.delete');
+  Route::get('/', [CartsController::class, 'index'])->name('api.carts');
+  Route::post('/store', [CartsController::class, 'store'])->name('api.carts.store');
+  Route::post('/update/{id}', [CartsController::class, 'update'])->name('api.carts.update');
+  Route::post('/delete/{id}', [CartsController::class, 'destroy'])->name('api.carts.delete');
 });
