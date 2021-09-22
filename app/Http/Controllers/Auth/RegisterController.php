@@ -9,7 +9,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
-
+use Illuminate\Support\Str;
 use App\Models\Division;
 use App\Models\District;
 
@@ -31,30 +31,30 @@ class RegisterController extends Controller
   use RegistersUsers;
 
   /**
-  * Where to redirect users after registration.
-  *
-  * @var string
-  */
+   * Where to redirect users after registration.
+   *
+   * @var string
+   */
   protected $redirectTo = '/';
 
   /**
-  * Create a new controller instance.
-  *
-  * @return void
-  */
+   * Create a new controller instance.
+   *
+   * @return void
+   */
   public function __construct()
   {
     $this->middleware('guest');
   }
 
-/**
- * @override
- * showRegistrationForm
- *
- * Display the registration form
- *
- * @return void view
- */
+  /**
+   * @override
+   * showRegistrationForm
+   *
+   * Display the registration form
+   *
+   * @return void view
+   */
   public function showRegistrationForm()
   {
     $divisions = Division::orderBy('priority', 'asc')->get();
@@ -66,11 +66,11 @@ class RegisterController extends Controller
 
 
   /**
-  * Get a validator for an incoming registration request.
-  *
-  * @param  array  $data
-  * @return \Illuminate\Contracts\Validation\Validator
-  */
+   * Get a validator for an incoming registration request.
+   *
+   * @param  array  $data
+   * @return \Illuminate\Contracts\Validation\Validator
+   */
   protected function validator(array $data)
   {
     return Validator::make($data, [
@@ -83,21 +83,20 @@ class RegisterController extends Controller
       'phone_no' => 'required|max:15',
       'street_address' => 'required|max:100',
     ]);
-
   }
 
   /**
-  * Create a new user instance after a valid registration.
-  *
-  * @param  array  $data
-  * @return \App\User
-  */
+   * Create a new user instance after a valid registration.
+   *
+   * @param  array  $data
+   * @return \App\User
+   */
   protected function register(Request $request)
   {
     $user = User::create([
       'first_name' => $request->first_name,
       'last_name' => $request->last_name,
-      'username' => str_slug($request->first_name.$request->last_name),
+      'username' => Str::slug($request->first_name . $request->last_name),
       'division_id' => $request->division_id,
       'district_id' => $request->district_id,
       'phone_no' => $request->phone_no,
@@ -105,7 +104,7 @@ class RegisterController extends Controller
       'ip_address' => request()->ip(),
       'email' => $request->email,
       'password' => Hash::make($request->password),
-      'remember_token'  =>str_random(50),
+      'remember_token'  => Str::random(50),
       'status'  => 0,
     ]);
 
@@ -113,7 +112,5 @@ class RegisterController extends Controller
 
     session()->flash('success', 'A confirmation email has sent to you.. Please check and confirm your email');
     return redirect('/');;
-
-
   }
 }

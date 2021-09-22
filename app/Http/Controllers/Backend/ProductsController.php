@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+use Illuminate\Support\Str;
 use App\Models\Product;
 use App\Models\ProductImage;
 use Image;
@@ -15,7 +16,7 @@ class ProductsController extends Controller
   {
     $this->middleware('auth:admin');
   }
-  
+
   public function index()
   {
     $products = Product::orderBy('id', 'desc')->get();
@@ -55,7 +56,7 @@ class ProductsController extends Controller
     $product->price = $request->price;
     $product->quantity = $request->quantity;
 
-    $product->slug = str_slug($request->title);
+    $product->slug = Str::slug($request->title);
     $product->category_id = $request->category_id;
     $product->brand_id = $request->brand_id;
     $product->admin_id = 1;
@@ -81,8 +82,8 @@ class ProductsController extends Controller
 
         //insert that image
         //$image = $request->file('product_image');
-        $img = time() . $i .'.'. $image->getClientOriginalExtension();
-        $location = 'images/products/' .$img;
+        $img = time() . $i . '.' . $image->getClientOriginalExtension();
+        $location = 'images/products/' . $img;
         Image::make($image)->save($location);
 
         $product_image = new ProductImage;
@@ -130,14 +131,13 @@ class ProductsController extends Controller
     foreach ($product->images as $img) {
       // Delete from path
       $file_name = $img->image;
-      if (file_exists("images/products/".$file_name)) {
-        unlink("images/products/".$file_name);
+      if (file_exists("images/products/" . $file_name)) {
+        unlink("images/products/" . $file_name);
       }
 
       $img->delete();
     }
     session()->flash('success', 'Product has deleted successfully !!');
     return back();
-
   }
 }

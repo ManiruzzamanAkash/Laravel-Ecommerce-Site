@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
+use Illuminate\Support\Str;
 use App\Models\Division;
 use App\Models\District;
 
@@ -97,7 +98,7 @@ class RegisterController extends Controller
     $user = User::create([
       'first_name' => $request->first_name,
       'last_name' => $request->last_name,
-      'username' => str_slug($request->first_name.$request->last_name),
+      'username' => Str::slug($request->first_name.$request->last_name),
       'division_id' => $request->division_id,
       'district_id' => $request->district_id,
       'phone_no' => $request->phone_no,
@@ -105,7 +106,7 @@ class RegisterController extends Controller
       'ip_address' => request()->ip(),
       'email' => $request->email,
       'password' => Hash::make($request->password),
-      'remember_token'  =>str_random(50),
+      'remember_token'  =>Str::random(50),
       'status'  => 0,
     ]);
 
